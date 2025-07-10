@@ -1,0 +1,37 @@
+<div class="topbar">
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">Yacce</span>
+            <%
+                String username = (String) session.getAttribute("username");
+                String role = (String) session.getAttribute("role");
+                if (username != null && role != null) {
+            %>
+            <span class="navbar-text text-white">
+                Bienvenido <%= username %> | <%= role %>
+            </span>
+            <%
+                }
+            %>
+        </div>
+    </nav>
+  
+</div>
+
+<style>
+    .topbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+    .navbar {
+        padding: 0.5rem 1rem; /* Ajustar padding para una barra más compacta */
+    }
+    .navbar-brand {
+        font-size: 1.5rem; /* Tamaño del texto del nombre de la empresa */
+    }
+    .navbar-text {
+        margin-left: auto; /* Empujar el mensaje de bienvenida hacia la derecha */
+    }
+</style>

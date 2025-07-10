@@ -1,0 +1,30 @@
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
+<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <div class="position-sticky pt-3">
+        <h4 class="text-center">Navegación</h4>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link <%= request.getServletPath().contains("gestionCursos.jsp") ? "active" : "" %>" 
+                   href="${pageContext.request.contextPath}/CursoServlet">
+                    CURSOS
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <%= request.getServletPath().contains("gestionUsuarios.jsp") ? "active" : "" %>" 
+                   href="${pageContext.request.contextPath}/UsuarioServlet">
+                   USUARIOS
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/UsuarioServlet?accion=reporteGeneral">
+                    REPORTE GENERAL
+                </a>
+            </li>
+            <li class="nav-item mt-auto">
+                <a class="nav-link" href="${pageContext.request.contextPath}/LoginServlet?accion=logout">
+                    CERRAR SESIÓN
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
