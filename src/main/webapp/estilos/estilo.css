@@ -1,0 +1,133 @@
+body {
+    background-color: #f8f9fa;
+    padding-top: 56px;
+}
+
+.sidebar {
+    background-color: #d9d9d9;
+    height: 100%; /* Ajustar altura restando la barra superior */
+    position: fixed;
+    top: 30px; /* Comenzar debajo de la barra superior */
+    left: 0;
+    padding-top: 20px;
+}
+.position-sticky{
+    background-color: #d9d9d9;
+    height: 100%;
+}
+.sidebar a {
+    color: black;
+    padding: 10px 15px;
+    display: block;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    background-color: black;
+    font-weight: bold;
+    color: white;
+}
+
+main {
+    margin-left: 250px;
+}
+
+/* Estilos para los cards */
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    height: 300px; /* Altura fija para todas las cards */
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Forzar el ancho completo dentro del grid */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Estilos para el efecto de flip */
+.flip-card {
+    perspective: 1000px;
+    height: 300px; /* Altura fija para uniformidad */
+    width: 100%; /* Forzar el ancho completo */
+}
+
+.flip-card-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    width: 100%; /* Asegurar que ocupe todo el ancho del contenedor */
+    height: 100%; /* Ocupa toda la altura del contenedor */
+    backface-visibility: hidden;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.flip-card-front {
+    background-color: #ffffff;
+    transform: rotateY(0deg);
+}
+
+.flip-card-back {
+    background-color: #f1f1f1;
+    transform: rotateY(180deg);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Ajuste para el signo + */
+.plus-sign {
+    font-size: 3rem;
+    color: #6c757d;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+/* Ajustes para los botones */
+.btn-sm {
+    font-size: 0.875rem;
+    padding: 5px 10px;
+    margin: 2px;
+}
+
+/* Asegurar que el contenido no desborde */
+.card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: auto; /* Permite scroll si el contenido es demasiado largo */
+}
+
+/* Ajuste para el grid */
+.row {
+    margin-bottom: 20px; /* Espaciado adicional entre filas */
+}
+
+.row-cols-md-3 > .col {
+    display: flex;
+    justify-content: stretch;
+    margin-bottom: 20px; /* Espaciado adicional entre cards */
+}

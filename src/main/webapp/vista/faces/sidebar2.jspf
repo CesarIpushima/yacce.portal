@@ -1,0 +1,72 @@
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ page import="modelo.Usuario, modelo.dao.UsuarioDAO" %>
+<%
+    boolean puedeObtenerCertificado = false;
+    String mensajeCertificado = "Debe iniciar sesión para obtener el certificado.";
+    String sidebarUsername = (String) session.getAttribute("username");
+    if (sidebarUsername != null) {
+        try {
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            Usuario usuario = usuarioDAO.obtenerPorUser(sidebarUsername);
+            if (usuario != null) {
+                puedeObtenerCertificado = usuario.getEstado() == 3; // Check if estado is 4 (APPROVED)
+                mensajeCertificado = puedeObtenerCertificado ? "Felicidades, obtuviste el certificado." : "Debe aprobar todos los cursos para obtener el certificado.";
+            } else {
+                mensajeCertificado = "Usuario no encontrado.";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            mensajeCertificado = "Error al verificar elegibilidad.";
+        }
+    }
+%>
+<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <div class="position-sticky pt-3">
+        <h4 class="text-center">Navegación</h4>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link <%= request.getServletPath().contains("indexPostulante.jsp") || request.getServletPath().contains("temas.jsp") ? "active" : "" %>" 
+                   href="${pageContext.request.contextPath}/CursoServlet?accion=listar">
+                    CURSOS
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <%= puedeObtenerCertificado ? "" : "disabled" %>" 
+                   href="${pageContext.request.contextPath}/TemaServlet?accion=obtenerCertificado"
+                   id="certificadoBtn"
+                   <%= puedeObtenerCertificado ? "" : "title='Debe completar y aprobar todos los cursos para obtener el certificado'" %>>
+                    CERTIFICADO
+                </a>
+            </li>
+            <li class="nav-item mt-auto">
+                <a class="nav-link" href="${pageContext.request.contextPath}/LoginServlet?accion=logout">
+                    Cerrar Sesión
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Toast Container -->
+<div class="toast-container">
+    <div id="certificadoToast" class="toast align-items-center text-bg-<%= puedeObtenerCertificado ? "success" : "warning" %> border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                <%= mensajeCertificado %>
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .toast-container { position: fixed; top: 20px; right: 20px; z-index: 1055; }
+</style>
+
+<script>
+    document.getElementById('certificadoBtn').addEventListener('click', function(e) {
+        var toastEl = document.getElementById('certificadoToast');
+        var toast = new bootstrap.Toast(toastEl);
+        toast.show();
+    });
+</script>
