@@ -168,7 +168,7 @@
     <% } %>
 </script>
 <script>
-    const TIEMPO_EXAMEN_MINUTOS = 1;
+    const TIEMPO_EXAMEN_MINUTOS = 30;
     const DURACION_MS = TIEMPO_EXAMEN_MINUTOS * 60 * 1000;
     // Obtener el idCurso desde el campo oculto
     const idCurso = document.querySelector('input[name="idCurso"]')?.value || "generico";
