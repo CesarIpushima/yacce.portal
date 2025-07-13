@@ -37,7 +37,6 @@
     </div>
     
     <a href="${pageContext.request.contextPath}/TemaServlet?accion=finalizarTema&idTema=<%= idTema %>&idCurso=<%= idCurso %>" class="btn btn-success mt-3">Finalizado</a>
-    <a href="${pageContext.request.contextPath}/TemaServlet?accion=listar&idCurso=<%= idCurso %>" class="btn btn-secondary mt-3">Volver a Temas</a>
     <%
         } else {
     %>
