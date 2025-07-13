@@ -11,6 +11,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import jakarta.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
@@ -99,9 +102,9 @@ public class LoginServlet extends HttpServlet {
                     System.out.println("Usuario en proceso: " + user);
                     
                     if (estado == 2 && usuario.getFechaInicio() != null && "POSTULANTE".equals(usuario.getRol().getNombreRol())) {
-                        long milisegundosActuales = System.currentTimeMillis();
-                        long milisegundosInicio = usuario.getFechaInicio().getTime();
-                        long diferenciaDias = (milisegundosActuales - milisegundosInicio) / (1000 * 60 * 60 * 24);
+                        LocalDate fechaInicio = usuario.getFechaInicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                        LocalDate fechaActual = LocalDate.now();
+                        long diferenciaDias = ChronoUnit.DAYS.between(fechaInicio, fechaActual);
 
                         if (diferenciaDias > 7) {
                             // Bloquear al usuario automáticamente
@@ -112,8 +115,6 @@ public class LoginServlet extends HttpServlet {
                             request.getRequestDispatcher("/vista/login.jsp").forward(request, response);
                             return;
                         } else {
-                            long diasRestantes = 7 - diferenciaDias;
-                            request.setAttribute("msje", "Advertencia: Le quedan " + diasRestantes + " día(s) para completar el proceso antes de ser bloqueado.");
                             request.setAttribute("mensajeTipo", "warning");
                         }
                     }
