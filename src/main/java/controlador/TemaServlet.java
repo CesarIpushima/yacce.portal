@@ -191,9 +191,15 @@ private void listarTemas(HttpServletRequest request, HttpServletResponse respons
             throws ServletException, IOException {
         try {
             int id = Integer.parseInt(request.getParameter("id"));
+            int idCurso = Integer.parseInt(request.getParameter("idCurso")); // Obtener idCurso
             TemaDAO dao = new TemaDAO();
             Tema tema = dao.obtenerPorId(id);
             request.setAttribute("tema", tema);
+
+            // Configurar el objeto Curso
+            CursoDAO cursoDAO = new CursoDAO();
+            Curso curso = cursoDAO.obtenerPorId(idCurso);
+            request.setAttribute("curso", curso);
         } catch (NumberFormatException | SQLException e) {
             e.printStackTrace();
             request.setAttribute("msje", "Error al cargar tema: " + e.getMessage());
@@ -207,11 +213,18 @@ private void listarTemas(HttpServletRequest request, HttpServletResponse respons
             Tema tema = new Tema();
             tema.setNombreTema(request.getParameter("nombreTema"));
             tema.setContenido(request.getParameter("contenido"));
+            int idCurso = Integer.parseInt(request.getParameter("idCurso"));
             Curso curso = new Curso();
-            curso.setIdCurso(Integer.parseInt(request.getParameter("idCurso")));
+            curso.setIdCurso(idCurso);
             tema.setCurso(curso);
             TemaDAO dao = new TemaDAO();
             boolean exito = dao.registrar(tema);
+
+            // Configurar el objeto Curso
+            CursoDAO cursoDAO = new CursoDAO();
+            Curso cursoObj = cursoDAO.obtenerPorId(idCurso);
+            request.setAttribute("curso", cursoObj);
+
             request.setAttribute("msje", exito ? "Tema insertado correctamente" : "Error al insertar tema");
         } catch (NumberFormatException | SQLException e) {
             e.printStackTrace();
@@ -228,10 +241,17 @@ private void listarTemas(HttpServletRequest request, HttpServletResponse respons
             tema.setNombreTema(request.getParameter("nombreTema"));
             tema.setContenido(request.getParameter("contenido"));
             Curso curso = new Curso();
-            curso.setIdCurso(Integer.parseInt(request.getParameter("idCurso")));
+            int idCurso = Integer.parseInt(request.getParameter("idCurso"));
+            curso.setIdCurso(idCurso);
             tema.setCurso(curso);
             TemaDAO dao = new TemaDAO();
             boolean exito = dao.actualizar(tema);
+
+            // Configurar el objeto Curso
+            CursoDAO cursoDAO = new CursoDAO();
+            Curso cursoObj = cursoDAO.obtenerPorId(idCurso);
+            request.setAttribute("curso", cursoObj);
+
             request.setAttribute("msje", exito ? "Tema actualizado correctamente" : "Error al actualizar tema");
         } catch (NumberFormatException | SQLException e) {
             e.printStackTrace();
@@ -244,9 +264,15 @@ private void listarTemas(HttpServletRequest request, HttpServletResponse respons
             throws ServletException, IOException {
         try {
             int id = Integer.parseInt(request.getParameter("id"));
+            int idCurso = Integer.parseInt(request.getParameter("idCurso")); // Obtener idCurso
             TemaDAO dao = new TemaDAO();
             boolean exito = dao.eliminar(id);
             request.setAttribute("msje", exito ? "Tema eliminado correctamente" : "Error al eliminar tema");
+
+            // Configurar el objeto Curso
+            CursoDAO cursoDAO = new CursoDAO();
+            Curso curso = cursoDAO.obtenerPorId(idCurso);
+            request.setAttribute("curso", curso);
         } catch (NumberFormatException | SQLException e) {
             e.printStackTrace();
             request.setAttribute("msje", "Error al eliminar tema: " + e.getMessage());

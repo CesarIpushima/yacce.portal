@@ -13,7 +13,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Gestión de Preguntas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}//estilos/estilo.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/estilos/estilo.css">
 </head>
 <body>
     <%@ include file="/vista/faces/topbar.jspf" %>
