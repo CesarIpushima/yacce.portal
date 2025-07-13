@@ -4,7 +4,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexion {
-    private static final String URL = "jdbc:mysql://database-yacce.mysql.database.azure.com:3306/yacce_portal";
+    private static final String URL = "jdbc:mysql://database-yacce.mysql.database.azure.com:3306/yacce_portal?useSSL=true&requireSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     private static final String USER = "Administrador";
     private static final String PASS = "Administrador123**";
     public static Connection getConexion() {
